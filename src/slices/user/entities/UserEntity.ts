@@ -16,6 +16,7 @@ export type UserData = {
   phone?: string;
   coord?: any;
   distance?: number;
+  appointmentsTotal?: number;
   plan?: string;
   cnpj?: string;
   city?: string;
@@ -35,6 +36,7 @@ export type UserData = {
   active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+  serviceIds?: string[];
 };
 
 export type UserPaginated = {
@@ -60,6 +62,7 @@ export class UserEntity {
   phone?: string;
   coord?: any;
   distance?: number;
+  appointmentsTotal?: number;
   plan?: string;
   cnpj?: string;
   city?: string;
@@ -79,6 +82,7 @@ export class UserEntity {
   active?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
+  serviceIds?: string[];
   constructor(data: UserData) {
     this.createdById = data.createdById;
     this.name = data.name;
@@ -96,6 +100,7 @@ export class UserEntity {
     this.phone = data.phone;
     this.coord = data.coord;
     this.distance = data.distance;
+    this.appointmentsTotal = 0;
     this.plan = data.plan;
     this.cnpj = data.cnpj;
     this.city = data.city;
@@ -112,6 +117,7 @@ export class UserEntity {
     this.nextPlan = data.nextPlan;
     this.addresses = data.addresses;
     this.clientId = data.clientId;
+    this.serviceIds = data.serviceIds;
     this.active = false;
     this.createdAt = new Date();
     this.updatedAt = new Date();

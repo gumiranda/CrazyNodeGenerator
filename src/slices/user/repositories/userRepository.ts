@@ -70,6 +70,9 @@ export class UserRepository
     const total = totalResult?.[0]?.name ?? 0;
     return { users: resultGeoNearPaginatedArray, total };
   }
+  async incrementAppointmentsTotal(query: Query): Promise<UserData | null> {
+    return this.repository.increment(query?.fields ?? {}, { appointmentsTotal: 1 });
+  }
   async addUser(user: UserData): Promise<UserData | null> {
     return this.repository.add(user);
   }

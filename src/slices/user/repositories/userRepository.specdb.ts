@@ -157,7 +157,36 @@ describe("User Mongo Repository", () => {
     const result = testInstance.loadUserByPage(fakeQuery);
     await expect(result).rejects.toThrow("Error");
   });
-
+  test("should rethrow if increment of incrementUser throws", async () => {
+    repository.increment.mockRejectedValueOnce(new Error("Error"));
+    const result = testInstance.incrementAppointmentsTotal(fakeQuery);
+    await expect(result).rejects.toThrow("Error");
+  });
+  test("should call increment of incrementAppointmentsTotal with correct values", async () => {
+    await testInstance.incrementAppointmentsTotal(fakeQuery);
+    expect(repository.increment).toHaveBeenCalledWith(fakeQuery?.fields, {
+      appointmentsTotal: 1,
+    });
+    expect(repository.increment).toHaveBeenCalledTimes(1);
+  });
+  test("should return a user incrementd when incrementAppointmentsTotal increment it", async () => {
+    const result = await testInstance.incrementAppointmentsTotal(fakeQuery);
+    expect(result).toEqual(fakeUserEntity);
+  });
+  test("should return a user incrementd when incrementAppointmentsTotal increment it when i pass null", async () => {
+    const result = await testInstance.incrementAppointmentsTotal(null as any);
+    expect(result).toEqual(fakeUserEntity);
+  });
+  test("should return null when incrementAppointmentsTotal returns null", async () => {
+    repository.increment.mockResolvedValueOnce(null);
+    const result = await testInstance.incrementAppointmentsTotal(fakeQuery);
+    expect(result).toBeNull();
+  });
+  test("should rethrow if increment of incrementAppointmentsTotal throws", async () => {
+    repository.increment.mockRejectedValueOnce(new Error("Error"));
+    const result = testInstance.incrementAppointmentsTotal(fakeQuery);
+    await expect(result).rejects.toThrow("Error");
+  });
   test("should return null if i dont pass the userLoggedId", async () => {
     repository.getOne.mockResolvedValueOnce({
       ...fakeUserEntity,

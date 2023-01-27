@@ -22,6 +22,7 @@ export const fakeUserEntity = {
   phone: "string",
   coord: { type: "Point", coordinates: [10, 10] },
   distance: 1,
+  appointmentsTotal: 1,
   plan: "string",
   cnpj: "string",
   city: "string",
@@ -72,6 +73,7 @@ describe("User", () => {
       active: false,
       confirmedEmail: false,
       sendedEmail: false,
+      appointmentsTotal: 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     });

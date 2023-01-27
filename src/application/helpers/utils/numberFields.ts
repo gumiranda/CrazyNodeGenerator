@@ -5,6 +5,7 @@ export const numberFields = [
   "duration",
   "promotionalPrice",
   "productsQuantityNeeded",
+  "appointmentsTotal",
   "status",
   "minimumTimeForReSchedule",
 ];
